@@ -26,6 +26,7 @@ model Product {
 model Material {
   id      String    @id @default(uuid())
   name    String
+  type    String
   Product Product[]
 }
 
