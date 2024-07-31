@@ -28,7 +28,7 @@ export class MaterialController {
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.materialService.findOne(id);
+    return this.materialService.findOne(+id);
   }
 
   @Patch(':id')

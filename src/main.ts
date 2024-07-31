@@ -12,6 +12,8 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // Throw an error if non-whitelisted properties are present
     }),
   );
+
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

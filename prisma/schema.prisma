@@ -14,33 +14,42 @@ datasource db {
 }
 
 model Product {
-  id             String             @id @default(uuid())
-  name           String
-  scaleZ         Decimal
-  fillPercentage Decimal
-  material       Material           @relation(fields: [materialId], references: [id])
-  materialId     String
-  orders         ProductsOnOrders[]
+  id     Int      @id @default(autoincrement())
+  name   String
+  Quoter Quoter[]
+}
+
+model Quoter {
+  id Int @id @default(autoincrement())
+
+  scaleZ             Float
+  fillPercentage     Float
+  printConsume       Float
+  materialPrintCost  Float
+  energyCost         Float
+  printTime          Int
+  printEnergyCost    Float
+  costPerMachine     Float
+  overCost           Float
+  percentageOfProfit Float
+  saleCost           Float
+  valueWithK         Float
+  netCost            Float
+
+  // Relaciones
+  Products   Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  Material   Material @relation(fields: [materialId], references: [id])
+  materialId Int
 }
 
 model Material {
-  id      String    @id @default(uuid())
-  name    String
-  type    String
-  Product Product[]
+  id     Int      @id @default(autoincrement())
+  name   String
+  type   String
+  Quoter Quoter[]
 }
 
 model Order {
-  id       String             @id @default(uuid())
-  products ProductsOnOrders[]
-}
-
-model ProductsOnOrders {
-  product   Product  @relation(fields: [productId], references: [id])
-  productId String
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   String
-  createdAt DateTime
-
-  @@id([productId, orderId])
+  id Int @id @default(autoincrement())
 }

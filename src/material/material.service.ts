@@ -27,7 +27,7 @@ export class MaterialService extends PrismaClient implements OnModuleInit {
     return materials;
   }
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     const material = await this.material.findUnique({
       where: {
         id,
@@ -39,7 +39,16 @@ export class MaterialService extends PrismaClient implements OnModuleInit {
   }
 
   update(id: number, updateMaterialDto: UpdateMaterialDto) {
-    return `This action updates a #${id} material`;
+    const material = this.material.update({
+      where: {
+        id,
+      },
+      data: {
+        ...updateMaterialDto,
+      },
+    });
+
+    return material;
   }
 
   remove(id: number) {
